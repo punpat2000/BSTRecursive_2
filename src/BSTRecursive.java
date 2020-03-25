@@ -250,7 +250,8 @@ public class BSTRecursive {
 		if (n.data > v)
 			result.insert(n.data);
 		this.greaterThan(n.left, v, result);
-		return this.greaterThan(n.right, v, result);
+		this.greaterThan(n.right, v, result);
+		return result;
 	}
 
 	/**
@@ -279,21 +280,19 @@ public class BSTRecursive {
 	 * 
 	 */
 	private boolean isBST(BSTNode n) {
-		if (n == null || n.left == null && n.right == null)
+		if (n == null)
 			return true;
-		if (n.left == null) {
-			int minRight = ((TreeIterator) this.findMin(n.right)).currentNode.data;
-			return this.isBST(n.right) && minRight > n.data;
-		}
-		if (n.right == null) {
-			int maxLeft = ((TreeIterator) this.findMax(n.left)).currentNode.data;
-			return this.isBST(n.left) && maxLeft < n.data;
-		}
-		int minRight = ((TreeIterator) this.findMin(n.right)).currentNode.data;
-		int maxLeft = ((TreeIterator) this.findMax(n.left)).currentNode.data;
-		int maxRight = ((TreeIterator) this.findMax(n.right)).currentNode.data;
-		return maxLeft < n.data && this.isBST(n.left) && this.isBST(n.right)
-				&& (minRight == maxRight ? true : minRight > n.data);
+		if (n.left == null && n.right == null)
+			return true;
+		if (n.left != null && n.right == null)
+			return ((TreeIterator) this.findMax(n.left)).currentNode.data < n.data;
+		if (n.left == null && n.right != null )
+			return ((TreeIterator) this.findMin(n.right)).currentNode.data > n.data;
+		if (((TreeIterator) this.findMax(n.left)).currentNode.data > n.data)
+			return false;
+		if (((TreeIterator) this.findMin(n.right)).currentNode.data < n.data)
+			return false;
+		return this.isBST(n.left) && this.isBST(n.right);
 	}
 
 	/**
