@@ -265,9 +265,7 @@ public class BSTRecursive {
 	 * 
 	 */
 	private String toStringInOrder(BSTNode n) {
-		if (n == null)
-			return "";
-		return (this.toStringInOrder(n.left) + " " + n.data + " " + this.toStringInOrder(n.right)).strip();
+		return n == null ? "" : (toStringInOrder(n.left) + " " + n.data + " " + toStringInOrder(n.right)).strip();
 	}
 
 	/**
