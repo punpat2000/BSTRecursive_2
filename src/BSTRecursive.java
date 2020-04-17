@@ -210,9 +210,7 @@ public class BSTRecursive {
 	 * @return the number of nodes that the subtree contains
 	 */
 	private int numNodes(BSTNode n) {
-		if (n == null)
-			return 0;
-		return this.numNodes(n.left) + this.numNodes(n.right) + 1;
+		return n == null ? 0 : numNodes(n.left) + numNodes(n.right) + 1;
 	}
 
 	/**
@@ -223,12 +221,7 @@ public class BSTRecursive {
 	 * @return number of leaves in the subtree
 	 */
 	private int numLeaves(BSTNode n) {
-		if (n == null)
-			return 0;
-		if (n.left == null && n.right == null)
-			return 1;
-		else
-			return this.numLeaves(n.left) + this.numLeaves(n.right);
+		return n == null ? 0 : n.left == null && n.right == null ? 1 : numLeaves(n.left) + numLeaves(n.right);
 	}
 
 	/**
